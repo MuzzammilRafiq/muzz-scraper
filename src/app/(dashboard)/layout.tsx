@@ -1,3 +1,4 @@
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import React from "react";
 import BreadCrumbHeader from "~/components/BreadCrumbHeader";
 import DesktopSidebar from "~/components/Sidebar";
@@ -12,6 +13,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
           <BreadCrumbHeader />
           <div className="gap-1 flex items-center">
             <ModeToggle />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </header>
         <Separator />

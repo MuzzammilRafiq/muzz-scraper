@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
 import AppProviders from "~/components/providers/AppProviders";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Scaper",
@@ -13,10 +14,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`antialiased`}>
-        <AppProviders>{children}</AppProviders>
-      </body>
-    </html>
+    <ClerkProvider
+      afterSignOutUrl={"/sign-in"}
+      appearance={{
+        elements: {
+          formButtonPrimary:
+            "bg-primary hover:bg-primary/90 text-sm !shadow-none",
+        },
+      }}
+    >
+      <html lang="en">
+        <body className={`antialiased`}>
+          <AppProviders>{children}</AppProviders>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

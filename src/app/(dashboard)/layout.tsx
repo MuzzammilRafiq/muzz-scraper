@@ -1,5 +1,6 @@
 import React from "react";
-import DesktopSidebar from "~/components/sidebar";
+import BreadCrumbHeader from "~/components/BreadCrumbHeader";
+import DesktopSidebar from "~/components/Sidebar";
 import { Separator } from "~/components/ui/separator";
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,7 +8,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
       <DesktopSidebar />
       <div className="flex flex-col flex-1 min-h-screen">
         <header className="flex items-center justify-between px-6 py-4 h-[50px] container">
-          Scraper
+          <BreadCrumbHeader />
         </header>
         <Separator />
         <div className="overflow-auto">

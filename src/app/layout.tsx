@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import "./globals.css";
+import AppProviders from "~/components/providers/AppProviders";
 
 export const metadata: Metadata = {
   title: "Scaper",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }

@@ -48,4 +48,30 @@ const DesktopSidebar = () => {
     </div>
   );
 };
+export const MobileSidebar = () => {
+  const pathname = usePathname();
+  const activeRoute = routes.find((route) => route.href === pathname.slice(1));
+
+  return (
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t z-50">
+      <div className="flex justify-around p-2">
+        {routes.map((route) => (
+          <Link
+            key={route.href}
+            href={`/${route.href}`}
+            className={buttonVariants({
+              variant:
+                route.href === activeRoute?.href
+                  ? "sidebarItemActive"
+                  : "sidebarItem",
+            })}
+          >
+            <route.icon size={24} />
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default DesktopSidebar;

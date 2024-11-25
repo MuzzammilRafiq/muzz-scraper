@@ -8,6 +8,7 @@ import {
   BreadcrumbList,
 } from "./ui/breadcrumb";
 import { MobileSidebar } from "./Sidebar";
+import { ChevronRightIcon } from "lucide-react";
 
 const BreadCrumbHeader = () => {
   const pathname = usePathname();
@@ -22,9 +23,15 @@ const BreadCrumbHeader = () => {
           {paths.map((path, index) => (
             <React.Fragment key={index}>
               <BreadcrumbItem>
-                <BreadcrumbLink className="capitalize" href={`/${path}`}>
+                <BreadcrumbLink
+                  className="capitalize text-md"
+                  href={`/${path}`}
+                >
                   {path || "Home"}
                 </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbItem className="mt-1">
+                {index < paths.length - 1 && <ChevronRightIcon size="15" />}
               </BreadcrumbItem>
             </React.Fragment>
           ))}

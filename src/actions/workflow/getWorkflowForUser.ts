@@ -2,7 +2,7 @@
 import prisma from "~/lib/db";
 import { auth } from "@clerk/nextjs/server";
 
-export async function getWorkflowsForUser() {
+export async function getWorkflowForUser() {
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Unauthorized");

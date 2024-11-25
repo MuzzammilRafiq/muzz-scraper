@@ -13,7 +13,6 @@ import { ChevronRightIcon } from "lucide-react";
 const BreadCrumbHeader = () => {
   const pathname = usePathname();
   const paths = pathname === "/" ? [""] : pathname.split("/");
-  console.log(paths, pathname);
 
   return (
     <div className="flex items-center flex-start">

@@ -1,9 +1,11 @@
 import { AlertCircle, InboxIcon } from "lucide-react";
 import React, { Suspense } from "react";
-import { getWorkflowsForUser } from "~/actions/workflows/getWorkflowsForUser";
+import { getWorkflowForUser } from "~/actions/workflow/getWorkflowForUser";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Skeleton } from "~/components/ui/skeleton";
 import { waitFor } from "~/lib/helper/wait-for";
+import CreateWorkflowDialog from "./_components/CreateWorkflowDiaglog";
+import WorkflowCard from "./_components/WorkflowCard";
 
 export default function WorkflowsPage() {
   return (
@@ -15,12 +17,14 @@ export default function WorkflowsPage() {
             Welcome to the workflows page!
           </p>
         </div>
+        <CreateWorkflowDialog />
       </div>
       <div className="h-full py-6">
         <Suspense fallback={<UserWorkflowSkelton />}>
           <UserWorkflows />
         </Suspense>
       </div>
+      <CreateWorkflowDialog triggerText="Create your First Workflow" />
     </div>
   );
 }
@@ -36,7 +40,7 @@ function UserWorkflowSkelton() {
 
 async function UserWorkflows() {
   try {
-    const workflows = await getWorkflowsForUser();
+    const workflows = await getWorkflowForUser();
     if (workflows.length == 0) {
       return (
         <div className="flex flex-col gap-4  items-center justify-center h-full">

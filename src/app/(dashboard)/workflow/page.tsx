@@ -56,7 +56,13 @@ async function UserWorkflows() {
         </div>
       );
     }
-    return <div className="">ii</div>;
+    return (
+      <div className="grid grid-cols-1 gap-4">
+        {workflows.map((workflow, index) => (
+          <WorkflowCard key={index} workflow={workflow} />
+        ))}
+      </div>
+    );
   } catch (error) {
     return (
       <Alert variant={"destructive"}>

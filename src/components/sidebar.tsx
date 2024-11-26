@@ -13,7 +13,7 @@ import { usePathname } from "next/navigation";
 
 const routes = [
   { href: "", label: "Home", icon: HomeIcon },
-  { href: "workflow", label: "Workflow", icon: Layers2Icon },
+  { href: "workflows", label: "Workflows", icon: Layers2Icon },
   { href: "credentials", label: "Credentials", icon: ShieldCheckIcon },
   { href: "billing", label: "Billing", icon: CoinsIcon },
   { href: "settings", label: "Settings", icon: SettingsIcon },

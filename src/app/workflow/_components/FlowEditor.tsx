@@ -6,11 +6,14 @@ import {
   ReactFlow,
   useEdgesState,
   useNodesState,
+  useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { createFlowNode } from "~/lib/workflow/createFlowNode";
 import { TaskType } from "~/type/task";
 import NodeComponent from "./node/NodeComponent";
+import { useEffect } from "react";
+import { set } from "zod";
 
 const nodeTypes = {
   Node: NodeComponent,
@@ -18,11 +21,21 @@ const nodeTypes = {
 const snapGrid: [number, number] = [16, 16];
 const fitViewOptions = { padding: 2 };
 export default function FlowEditor({ workflow }: { workflow: Workflow }) {
-  const [nodes, setNodes, onNodesChange] = useNodesState([
-    createFlowNode(TaskType.LAUNCH_BROWSER, { x: 100, y: 100 }),
-  ]);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
+  const { setViewport } = useReactFlow();
+  useEffect(() => {
+    try {
+      const flow = JSON.parse(workflow.definition);
+      console.log(flow);
+      if (!flow) return;
+      setNodes(flow.nodes || []);
+      setEdges(flow.edges || []);
+      if (!flow.viewport) return;
+      const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+      setViewport({ x, y, zoom });
+    } catch (error) {}
+  }, [workflow.definition]);
   return (
     <main className="h-full w-full">
       <ReactFlow

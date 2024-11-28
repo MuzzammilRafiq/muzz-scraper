@@ -12,8 +12,9 @@ import "@xyflow/react/dist/style.css";
 import { createFlowNode } from "~/lib/workflow/createFlowNode";
 import { TaskType } from "~/type/task";
 import NodeComponent from "./node/NodeComponent";
-import { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { set } from "zod";
+import { AppNode } from "~/type/appNode";
 
 const nodeTypes = {
   Node: NodeComponent,
@@ -21,9 +22,9 @@ const nodeTypes = {
 const snapGrid: [number, number] = [16, 16];
 const fitViewOptions = { padding: 2 };
 export default function FlowEditor({ workflow }: { workflow: Workflow }) {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const { setViewport } = useReactFlow();
+  const { setViewport, screenToFlowPosition } = useReactFlow();
   useEffect(() => {
     try {
       const flow = JSON.parse(workflow.definition);
@@ -36,6 +37,22 @@ export default function FlowEditor({ workflow }: { workflow: Workflow }) {
       setViewport({ x, y, zoom });
     } catch (error) {}
   }, [workflow.definition]);
+
+  const onDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+  }, []);
+
+  const onDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    const taskType = e.dataTransfer.getData("application/reactflow");
+    if (!taskType || typeof taskType === undefined) return;
+
+    const position = screenToFlowPosition({ x: e.clientX, y: e.clientY });
+    const node = createFlowNode(taskType as TaskType, position);
+    setNodes((prev) => prev.concat(node));
+  }, []);
+
   return (
     <main className="h-full w-full">
       <ReactFlow
@@ -48,6 +65,8 @@ export default function FlowEditor({ workflow }: { workflow: Workflow }) {
         snapGrid={snapGrid}
         fitView
         fitViewOptions={fitViewOptions}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
       >
         <Controls position="top-left" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={8} size={1} />

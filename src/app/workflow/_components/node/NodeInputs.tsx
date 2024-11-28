@@ -4,6 +4,7 @@ import { cn } from "~/lib/utils";
 import { TaskRegistry } from "~/lib/workflow/task/registry";
 import { TaskParam } from "~/type/task";
 import NodeFlowParamField from "./NodeParamField";
+import { ColorForHandle } from "./common";
 
 export function NodeInputs({ children }: { children: React.ReactNode }) {
   return <div className="flex flex-col gap-2 divide-y">{children}</div>;
@@ -23,7 +24,10 @@ export function NodeInput({
           id={input.name}
           type="target"
           position={Position.Left}
-          className={cn("!bg-muted-foreground !border-2  !-left-1 !w-2 !h-2")}
+          className={cn(
+            "!bg-muted-foreground !border-2  !-left-1 !w-2 !h-2",
+            ColorForHandle[input.type]
+          )}
         />
       )}
     </div>

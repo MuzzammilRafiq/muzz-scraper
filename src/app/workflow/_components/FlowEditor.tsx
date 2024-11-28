@@ -1,8 +1,11 @@
 import { Workflow } from "@prisma/client";
 import {
+  addEdge,
   Background,
   BackgroundVariant,
+  Connection,
   Controls,
+  Edge,
   ReactFlow,
   useEdgesState,
   useNodesState,
@@ -15,6 +18,7 @@ import NodeComponent from "./node/NodeComponent";
 import React, { useCallback, useEffect } from "react";
 import { set } from "zod";
 import { AppNode } from "~/type/appNode";
+import { connect } from "http2";
 
 const nodeTypes = {
   Node: NodeComponent,
@@ -23,7 +27,7 @@ const snapGrid: [number, number] = [16, 16];
 const fitViewOptions = { padding: 2 };
 export default function FlowEditor({ workflow }: { workflow: Workflow }) {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const { setViewport, screenToFlowPosition } = useReactFlow();
   useEffect(() => {
     try {
@@ -50,7 +54,11 @@ export default function FlowEditor({ workflow }: { workflow: Workflow }) {
 
     const position = screenToFlowPosition({ x: e.clientX, y: e.clientY });
     const node = createFlowNode(taskType as TaskType, position);
-    setNodes((prev) => prev.concat(node));
+    setNodes((nds) => nds.concat(node));
+  }, []);
+
+  const onConnect = useCallback((connection: Connection) => {
+    setEdges((eds) => addEdge({ ...connection, animated: true }, eds));
   }, []);
 
   return (
@@ -67,6 +75,7 @@ export default function FlowEditor({ workflow }: { workflow: Workflow }) {
         fitViewOptions={fitViewOptions}
         onDragOver={onDragOver}
         onDrop={onDrop}
+        onConnect={onConnect}
       >
         <Controls position="top-left" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={8} size={1} />

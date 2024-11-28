@@ -38,6 +38,14 @@ export default function NodeParamField({
           updateNodeParamValue={updateNodeParamValue}
         />
       );
+    case TaskParamType.BROWSER_INSTANCE:
+      return (
+        <StringParam
+          param={param}
+          value={""}
+          updateNodeParamValue={updateNodeParamValue}
+        />
+      );
     default:
       return (
         <div className="w-full">

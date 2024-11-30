@@ -14,6 +14,7 @@ export default function SaveButton({ workflowId }: { workflowId: string }) {
       toast.success("Workflow saved successfully", { id: "save-workflow" });
     },
     onError: (error) => {
+      console.log("@saveMutation", error);
       toast.error("Something Went Wrong", { id: "save-workflow" });
     },
   });

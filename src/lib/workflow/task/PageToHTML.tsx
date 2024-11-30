@@ -1,5 +1,5 @@
 import React from "react";
-import { LucideProps, GlobeIcon, CodeIcon } from "lucide-react";
+import { LucideProps, CodeIcon } from "lucide-react";
 import { TaskParamType, TaskType } from "~/type/task";
 
 export const PageToHTMLTask = {

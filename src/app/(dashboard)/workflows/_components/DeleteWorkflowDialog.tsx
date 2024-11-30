@@ -15,7 +15,6 @@ import {
   AlertDialogTitle,
 } from "~/components/ui/alert-dialog";
 import { Input } from "~/components/ui/input";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface Props {
@@ -32,7 +31,6 @@ export default function DeleteWorkflowDialog({
   workflowId,
   workflowName,
 }: Props) {
-  const router = useRouter();
   const [confirmName, setConfirmName] = useState("");
   const isValid = confirmName === workflowName;
 

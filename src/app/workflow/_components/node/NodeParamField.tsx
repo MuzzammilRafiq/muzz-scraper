@@ -9,9 +9,11 @@ import { useCallback } from "react";
 export default function NodeParamField({
   param,
   nodeId,
+  disabled,
 }: {
   param: TaskParam;
   nodeId: string;
+  disabled: boolean;
 }) {
   const { updateNodeData, getNode } = useReactFlow();
   const node = getNode(nodeId) as AppNode;
@@ -36,6 +38,7 @@ export default function NodeParamField({
           param={param}
           value={value}
           updateNodeParamValue={updateNodeParamValue}
+          disabled={disabled}
         />
       );
     case TaskParamType.BROWSER_INSTANCE:

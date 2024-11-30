@@ -3,7 +3,6 @@ import React, { Suspense } from "react";
 import { getWorkflowForUser } from "~/actions/workflow/getWorkflowForUser";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Skeleton } from "~/components/ui/skeleton";
-import { waitFor } from "~/lib/helper/wait-for";
 import CreateWorkflowDialog from "./_components/CreateWorkflowDiaglog";
 import WorkflowCard from "./_components/WorkflowCard";
 
@@ -64,6 +63,7 @@ async function UserWorkflows() {
       </div>
     );
   } catch (error) {
+    console.error(error);
     return (
       <Alert variant={"destructive"}>
         <AlertCircle className="w-4 h-4" />

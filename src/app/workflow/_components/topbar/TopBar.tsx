@@ -1,5 +1,5 @@
 "use client";
-import { ChevronLeftCircleIcon, Save } from "lucide-react";
+import { ChevronLeftCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import TooltipWrapper from "~/components/TooltipWrapper";

@@ -19,9 +19,13 @@ import React, { useCallback, useEffect } from "react";
 import { set } from "zod";
 import { AppNode } from "~/type/appNode";
 import { connect } from "http2";
+import DeletableEdge from "./edges/DeletableEdge";
 
 const nodeTypes = {
   Node: NodeComponent,
+};
+const edgeTypes = {
+  default: DeletableEdge,
 };
 const snapGrid: [number, number] = [16, 16];
 const fitViewOptions = { padding: 2 };
@@ -69,6 +73,7 @@ export default function FlowEditor({ workflow }: { workflow: Workflow }) {
         onEdgesChange={onEdgesChange}
         onNodesChange={onNodesChange}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         snapToGrid
         snapGrid={snapGrid}
         fitView

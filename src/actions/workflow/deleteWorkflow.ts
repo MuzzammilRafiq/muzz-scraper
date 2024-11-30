@@ -27,5 +27,5 @@ export async function DeleteWorkflow(workflowId: string) {
     },
   });
 
-  redirect("/workflow");
+  redirect("/workflows");
 }

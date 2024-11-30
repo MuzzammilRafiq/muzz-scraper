@@ -1,3 +1,4 @@
+import { AppNode } from "./appNode";
 import { TaskParam, TaskType } from "./task";
 
 export enum WorkflowStatus {
@@ -7,9 +8,16 @@ export enum WorkflowStatus {
 export type WorkflowTask = {
   label: string;
   icon: React.ComponentType<{ size: number }>;
-  isEntryPoints: boolean;
+  isEntryPoint: boolean;
   inputs: TaskParam[];
   outputs: TaskParam[];
   type: TaskType;
   credits: number;
 };
+
+export type WorkflowExecutionPlanPhase = {
+  phase: number;
+  nodes: AppNode[];
+};
+
+export type WorkflowExecutionPlan = WorkflowExecutionPlanPhase[];

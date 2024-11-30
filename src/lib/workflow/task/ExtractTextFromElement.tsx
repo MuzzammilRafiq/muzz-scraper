@@ -9,7 +9,7 @@ export const ExtractTextFromElement = {
   icon: (props: LucideProps) => (
     <CodeIcon {...props} className="stroke-rose-400" />
   ),
-  isEntryPoints: false,
+  isEntryPoint: false,
   credits: 2,
   inputs: [
     {

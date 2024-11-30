@@ -5,6 +5,7 @@ import React from "react";
 import TooltipWrapper from "~/components/TooltipWrapper";
 import { Button } from "~/components/ui/button";
 import SaveButton from "./SaveButton";
+import ExecuteButton from "./ExecuteButton";
 
 interface Props {
   title: string;
@@ -32,6 +33,7 @@ const TopBar = ({ title, subtitle, workflowId }: Props) => {
         </div>
       </div>
       <div className="flex flex-1 gap-1 justify-end">
+        <ExecuteButton workflowId={workflowId} />
         <SaveButton workflowId={workflowId} />
       </div>
     </header>

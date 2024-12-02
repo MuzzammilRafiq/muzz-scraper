@@ -3,8 +3,8 @@ import { TaskParam, TaskType } from "./task";
 
 export interface AppNodeData {
   type: TaskType;
-  inputs: Record<string, unknown>;
-  [key: string]: unknown;
+  inputs: Record<string, any>;
+  [key: string]: any;
 }
 export interface AppNode extends Node {
   data: AppNodeData;

@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 import prisma from "~/lib/db";
 import { FlowToExexutionPlan } from "~/lib/workflow/executionPlan";
 import { TaskRegistry } from "~/lib/workflow/task/registry";
@@ -72,4 +73,6 @@ export async function runWorkflow(form: {
   if (!execution) {
     throw new Error("execution not created");
   }
+
+  redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 }

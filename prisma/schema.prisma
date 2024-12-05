@@ -19,6 +19,11 @@ model Workflow {
   definition String
   status     String
 
+  lastRunAt     DateTime?
+  lastRunId     String?
+  lastRunStatus String?
+  nextRunAt     DateTime?
+
   createdAt  DateTime            @default(now())
   updatedAt  DateTime            @updatedAt
   executions WorkflowExecution[]
@@ -27,16 +32,18 @@ model Workflow {
 }
 
 model WorkflowExecution {
-  id          String           @id @default(cuid())
-  workflowId  String
-  userId      String
-  trigger     String
-  status      String
-  createdAt   DateTime         @default(now())
-  startedAt   DateTime?
-  completedAt DateTime?
-  workflow    Workflow         @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  phases      ExecutionPhase[]
+  id              String           @id @default(cuid())
+  workflowId      String
+  userId          String
+  trigger         String
+  status          String
+  createdAt       DateTime         @default(now())
+  startedAt       DateTime?
+  completedAt     DateTime?
+  definition      String           @default("{}")
+  creditsConsumed Int              @default(0)
+  workflow        Workflow         @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  phases          ExecutionPhase[]
 }
 
 model ExecutionPhase {

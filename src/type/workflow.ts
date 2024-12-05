@@ -31,6 +31,7 @@ export enum WorkflowExecutionStatus {
 
 export enum ExecutionPhaseStatus {
   CREATED = "CREATED",
+  PENDING = "PENDING",
   RUNNING = "RUNNING",
   COMPLETED = "COMPLETED",
   FAILED = "FAILED",

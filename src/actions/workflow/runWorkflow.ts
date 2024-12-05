@@ -3,6 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "~/lib/db";
+import { ExecuteWorkflow } from "~/lib/workflow/executeWorkflow";
 import { FlowToExexutionPlan } from "~/lib/workflow/executionPlan";
 import { TaskRegistry } from "~/lib/workflow/task/registry";
 import {
@@ -74,5 +75,6 @@ export async function runWorkflow(form: {
     throw new Error("execution not created");
   }
 
+  ExecuteWorkflow(execution.id); //long running task
   redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 }
